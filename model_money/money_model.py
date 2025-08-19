@@ -17,16 +17,18 @@ import numpy as np
 # Data manipulation and analysis.
 import pandas as pd
 
+import random
+
 #%%       
 class MoneyAgent(mesa.Agent):
     """An agent with fixed initial wealth."""
 
-    def __init__(self, model, wealth = 1 ):
+    def __init__(self, model):
         # Pass the parameters to the parent class.
         super().__init__(model)
 
         # Create the agent's attribute and set the initial values.
-        self.wealth = wealth
+        self.wealth = random.randint(1, 5)  # valor inteiro entre 1 e 5
         
 
     def say_wealth(self):
@@ -43,12 +45,33 @@ class MoneyAgent(mesa.Agent):
                 self.wealth -= 1      
                 
     def move(self):
+    # 1. Pega vizinhos (incluindo a célula atual, já que o agente pode ficar parado)
         possible_steps = self.model.grid.get_neighborhood(
-            self.pos,
-            moore=True,
-            include_center=True)
-        new_position = self.random.choice(possible_steps)
-        self.model.grid.move_agent(self, new_position)
+        self.pos,
+        moore=True,
+        include_center=True
+        )
+
+        best_position = self.pos
+        best_avg_wealth = self.wealth  # inicializa como a riqueza do próprio agente
+
+    # 2. Avalia cada célula vizinha
+        for pos in possible_steps:
+        # pega todos os agentes naquela célula
+            agents_in_cell = self.model.grid.get_cell_list_contents([pos])
+
+            if agents_in_cell:  # só calcula se houver agentes
+                total_wealth = sum(a.wealth for a in agents_in_cell)
+                avg_wealth = total_wealth / len(agents_in_cell)
+
+            # 3. Se a média for maior que a riqueza do agente, é candidata
+                if avg_wealth > best_avg_wealth:
+                    best_avg_wealth = avg_wealth
+                    best_position = pos
+
+    # 4. Move para a melhor posição (se mudou)
+        if best_position != self.pos:
+            self.model.grid.move_agent(self, best_position)
         
     def give_money(self):
         cellmates = self.model.grid.get_cell_list_contents([self.pos])

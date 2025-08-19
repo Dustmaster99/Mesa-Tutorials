@@ -146,7 +146,7 @@ def plot_agents_by_step_heatmap(df, step_values, cmap="RdYlGn_r"):
         plt.grid(False)
         plt.show()
 #%% 
-N_steps = 50
+N_steps = 100
 lista_steps = []
 N_agents = 1000
 grid_width = 10
@@ -158,7 +158,7 @@ grid_height = 10
 run_data = pd.DataFrame(columns=["unique_id", "wealth", "step"])  # DataFrame vazio inicial
 
 # Run the model
-model = MoneyModel(1000,10,10)
+model = MoneyModel(N_agents,grid_width,grid_height)
 for step in range(N_steps):
     agent_wealth = []
     model.step()
