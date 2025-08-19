@@ -31,8 +31,10 @@ Wealth distribution at the end of simulation:
 <img width="1720" height="352" alt="image" src="https://github.com/user-attachments/assets/6cf6aff4-9c5e-4620-99c4-b4984d5fcdb4" />
 
 
-Grid wealth distribution at the beginning of simulation
+Grid wealth distribution at the beginning of simulation: (The number inside the grid is the total wealth/n_agents in the grid)
+
 <img width="386" height="342" alt="image" src="https://github.com/user-attachments/assets/e884afc0-9d67-4843-8f3a-ab01b7ee6d1d" />
 
-Grid wealth distribution at the end of simulation
+Grid wealth distribution at the end of simulation: (The number inside the grid is the total wealth/n_agents in the grid)
+
 <img width="370" height="342" alt="image" src="https://github.com/user-attachments/assets/45c9f6ac-23ef-4d6c-ab80-98d5af9a7f4b" />
