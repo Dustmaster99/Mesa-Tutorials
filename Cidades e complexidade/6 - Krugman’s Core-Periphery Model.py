@@ -1,6 +1,108 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+'''
+Descrição dos Parâmetros no Modelo de Krugman
+K1 e K2 - Constantes de Escala
+K1 (Constante de Aglomeração)
+
+    O que é: Amplitude das forças de atração/aglomeração
+
+    Impacto: Controla o quanto a população tende a se concentrar
+
+    Analogia: "Força gravitacional" entre regiões
+
+    Valores típicos: 0.1 a 2.0
+
+    Efeito:
+
+        K1 alto → Aglomeração forte
+
+        K1 baixo → Aglomeração fraca
+
+K2 (Constante de Dispersão)
+
+    O que é: Amplitude das forças de repulsão/dispersão
+
+    Impacto: Controla o quanto a população tende a se espalhar
+
+    Analogia: "Pressão" que espalha a população
+
+    Valores típicos: 0.1 a 2.0
+
+    Efeito:
+
+        K2 alto → Dispersão forte
+
+        K2 baixo → Dispersão fraca
+
+α (alpha) - Taxa de Decaimento da Aglomeração
+O que é:
+
+    Parâmetro de alcance das forças de aglomeração
+
+    Controla quão longe a atração entre regiões se estende
+
+Impacto na simulação:
+python
+
+# Na equação: V1 = K1 * Σ[P * exp(-alpha * distância)]
+
+    Alpha ALTO (ex: 2.0):
+
+        Decaimento rápido → só regiões muito próximas se atraem
+
+        Tendência a múltiplos aglomerados pequenos
+
+        "Visão de curto alcance"
+
+    Alpha BAIXO (ex: 0.3):
+
+        Decaimento lento → regiões distantes ainda se atraem
+
+        Tendência a poucos aglomerados grandes
+
+        "Visão de longo alcance"
+
+Analogia:
+
+    Como o "alcance" da atração econômica entre cidades
+
+β (beta) - Taxa de Decaimento da Dispersão
+O que é:
+
+    Parâmetro de alcance das forças de dispersão
+
+    Controla quão longe os efeitos de repulsão se estendem
+
+Impacto na simulação:
+python
+
+# Na equação: V2 = K2 * Σ[P * exp(-beta * distância)]
+
+    Beta ALTO (ex: 2.0):
+
+        Dispersão de longo alcance → população se espalha uniformemente
+
+        Previne formação de aglomerados
+
+        "Competição global"
+
+    Beta BAIXO (ex: 0.3):
+
+        Dispersão de curto alcance → permite aglomeração local
+
+        Só dispersa entre vizinhos próximos
+
+        "Competição local"
+'''
+
+
+
+
+
+
+
 # ----------------------------
 # Parâmetros da simulação
 # ----------------------------
