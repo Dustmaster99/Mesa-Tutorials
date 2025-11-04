@@ -58,6 +58,7 @@ class FightOrFlightModel(mesa.Model):
                  alpha_fear=0.25, alpha_anger=0.2,
                  threat_intensity=0.3, decay=0.05, seed = None):
         super().__init__(seed=seed)
+       
         self.num_agents = int(width * height * density)
         self.grid = mesa.space.MultiGrid(width, height, True)
         self.alpha_fear = alpha_fear
@@ -184,7 +185,7 @@ model = FightOrFlightModel(width=20, height=20, density=1,
                            threat_intensity=0.0, decay=0.5)
 
 
-for step in range(100):
+for step in range(25):
     model.step()
 
 
