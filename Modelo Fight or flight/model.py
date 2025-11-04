@@ -5,9 +5,6 @@ Created on Tue Nov  4 16:33:50 2025
 @author: eosjo
 """
 
-
-
-
 import mesa
 import numpy as np
 from mesa import Model
@@ -102,80 +99,96 @@ class FightOrFlightModel(mesa.Model):
         self.agents.shuffle_do("step")
         
         
-# --- Intervalos de parâmetros ---
-param_range = np.arange(0, 1.1, 0.2)
-fixed_range = np.arange(0, 1.1, 0.25)
+# # --- Intervalos de parâmetros ---
+# param_range = np.arange(0, 1.1, 0.2)
+# fixed_range = np.arange(0, 1.1, 0.25)
 
-results = []
+# results = []
 
-# --- Loop principal ---
-for threat_intensity in fixed_range:
-    for decay in fixed_range:
-        for density in fixed_range:
-            for alpha_fear in param_range:
-                for alpha_anger in param_range:
+# # --- Loop principal ---
+# for threat_intensity in fixed_range:
+#     for decay in fixed_range:
+#         for density in fixed_range:
+#             for alpha_fear in param_range:
+#                 for alpha_anger in param_range:
 
-                    model = FightOrFlightModel(
-                        width=20, height=20,
-                        density=density,
-                        alpha_fear=alpha_fear,
-                        alpha_anger=alpha_anger,
-                        threat_intensity=threat_intensity,
-                        decay=decay
-                    )
+#                     model = FightOrFlightModel(
+#                         width=20, height=20,
+#                         density=density,
+#                         alpha_fear=alpha_fear,
+#                         alpha_anger=alpha_anger,
+#                         threat_intensity=threat_intensity,
+#                         decay=decay
+#                     )
 
-                    for _ in range(25):
-                        model.step()
+#                     for _ in range(25):
+#                         model.step()
 
-                    data = model.datacollector.get_model_vars_dataframe().iloc[-1]
+#                     data = model.datacollector.get_model_vars_dataframe().iloc[-1]
 
-                    results.append({
-                        "alpha_fear": alpha_fear,
-                        "alpha_anger": alpha_anger,
-                        "decay": decay,
-                        "threat_intensity": threat_intensity,
-                        "density": density,
-                        "FractionFight": data["FractionFight"],
-                        "FractionFlight": data["FractionFlight"],
-                        "FractionNeutral": data["FractionNeutral"]
-                    })
+#                     results.append({
+#                         "alpha_fear": alpha_fear,
+#                         "alpha_anger": alpha_anger,
+#                         "decay": decay,
+#                         "threat_intensity": threat_intensity,
+#                         "density": density,
+#                         "FractionFight": data["FractionFight"],
+#                         "FractionFlight": data["FractionFlight"],
+#                         "FractionNeutral": data["FractionNeutral"]
+#                     })
 
-df_results = pd.DataFrame(results)
-print("Total de simulações:", len(df_results))
+# df_results = pd.DataFrame(results)
+# print("Total de simulações:", len(df_results))
 
-# --- Função auxiliar para plotar mapas 2D ---
-def plot_heatmaps(df, threat_intensity, decay, density):
-    subset = df[
-        (df["threat_intensity"] == threat_intensity) &
-        (df["decay"] == decay) &
-        (df["density"] == density)
-    ]
+# # --- Função auxiliar para plotar mapas 2D ---
+# def plot_heatmaps(df, threat_intensity, decay, density):
+#     subset = df[
+#         (df["threat_intensity"] == threat_intensity) &
+#         (df["decay"] == decay) &
+#         (df["density"] == density)
+#     ]
 
-    fig, axes = plt.subplots(1, 3, figsize=(16, 5))
+#     fig, axes = plt.subplots(1, 3, figsize=(16, 5))
 
-    for ax, state, cmap, title in zip(
-        axes,
-        ["FractionFight", "FractionFlight", "FractionNeutral"],
-        ["Reds", "Oranges", "Greens"],
-        ["Lutar (Fight)", "Correr (Flight)", "Neutro (Neutral)"]
-    ):
-        pivot = subset.pivot(index="alpha_fear", columns="alpha_anger", values=state)
-        im = ax.imshow(pivot, origin="lower", cmap=cmap, extent=[0, 1, 0, 1], aspect="auto", vmin=0, vmax=1)
-        ax.set_title(f"{title}", fontsize=12)
-        ax.set_xlabel("α_anger")
-        ax.set_ylabel("α_fear")
-        fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04, label="Fração final")
+#     for ax, state, cmap, title in zip(
+#         axes,
+#         ["FractionFight", "FractionFlight", "FractionNeutral"],
+#         ["Reds", "Oranges", "Greens"],
+#         ["Lutar (Fight)", "Correr (Flight)", "Neutro (Neutral)"]
+#     ):
+#         pivot = subset.pivot(index="alpha_fear", columns="alpha_anger", values=state)
+#         im = ax.imshow(pivot, origin="lower", cmap=cmap, extent=[0, 1, 0, 1], aspect="auto", vmin=0, vmax=1)
+#         ax.set_title(f"{title}", fontsize=12)
+#         ax.set_xlabel("α_anger")
+#         ax.set_ylabel("α_fear")
+#         fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04, label="Fração final")
 
-    fig.suptitle(
-        f"threat_intensity={threat_intensity:.1f}, decay={decay:.1f}, density={density:.1f}",
-        fontsize=14, fontweight="bold"
-    )
-    plt.tight_layout()
-    plt.show()
+#     fig.suptitle(
+#         f"threat_intensity={threat_intensity:.1f}, decay={decay:.1f}, density={density:.1f}",
+#         fontsize=14, fontweight="bold"
+#     )
+#     plt.tight_layout()
+#     plt.show()
 
 
-# --- Plot automático para cada combinação de parâmetros fixos ---
-for threat_intensity in fixed_range:
-    for decay in fixed_range:
-        for density in fixed_range:
-            plot_heatmaps(df_results, threat_intensity, decay, density)
+# # --- Plot automático para cada combinação de parâmetros fixos ---
+# for threat_intensity in fixed_range:
+#     for decay in fixed_range:
+#         for density in fixed_range:
+#             plot_heatmaps(df_results, threat_intensity, decay, density)
+
+
+# ---------- Execução do Modelo ----------
+model = FightOrFlightModel(width=20, height=20, density=1,
+                           alpha_fear=0.4, alpha_anger=0.0,
+                           threat_intensity=0.0, decay=0.5)
+
+
+for step in range(100):
+    model.step()
+
+
+# ---------- Plot final das proporções ----------
+data = model.datacollector.get_model_vars_dataframe()
+data.plot(title="Dinâmica Lutar vs Correr (Mesa)")
+plt.show()
